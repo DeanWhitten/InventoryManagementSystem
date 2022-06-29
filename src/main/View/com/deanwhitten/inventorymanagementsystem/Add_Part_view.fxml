@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deanwhitten.inventorymanagementsystem.AddPart_Controller">
    <children>
       <GridPane layoutX="1.0" prefHeight="500.0" prefWidth="400.0">
@@ -48,27 +47,27 @@
             <Label text="Inv" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Price/Cost" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Max" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="Machine ID" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="toggled_label" text="Machine ID" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Min" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <padding>
                   <Insets left="20.0" />
                </padding>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-            <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="9" />
-            <RadioButton mnemonicParsing="false" selected="true" text="In-House" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+            <RadioButton fx:id="inHouseRadio" mnemonicParsing="false" selected="true" text="In-House" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <toggleGroup>
                   <ToggleGroup fx:id="AddPartsRadios" />
                </toggleGroup>
             </RadioButton>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="7" />
-            <RadioButton mnemonicParsing="false" text="Outsourced" toggleGroup="$AddPartsRadios" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="id_input" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="name_input" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="inv_input" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <TextField fx:id="priceCost_input" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="max_input" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <TextField fx:id="m_c_Toggled_input" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <TextField fx:id="min_input" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <RadioButton fx:id="outsourcedRadio" mnemonicParsing="false" text="Outsourced" toggleGroup="$AddPartsRadios" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

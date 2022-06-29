@@ -12,9 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/18"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deanwhitten.inventorymanagementsystem.Main_Controller">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deanwhitten.inventorymanagementsystem.Main_Controller">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -59,7 +57,7 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <TextField id="partSearchBar" fx:id="partSearchBar" promptText="Search by Part ID or Name" GridPane.columnIndex="1" />
+               <TextField id="partSearchBar" fx:id="partSearchBar" onKeyTyped="#onPartsSearchBarInput" promptText="Search by Part ID or Name" GridPane.columnIndex="1" />
             </children>
             <padding>
                <Insets bottom="20.0" />
@@ -87,7 +85,7 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-               <TextField id="productSearchBar" fx:id="productSearchBar" promptText="Search by Product ID or Name" GridPane.columnIndex="1" />
+               <TextField id="productSearchBar" fx:id="productSearchBar" onKeyTyped="#onProductsSearchBarInput" promptText="Search by Product ID or Name" GridPane.columnIndex="1" />
             </children>
             <padding>
                <Insets bottom="20.0" />
@@ -104,9 +102,9 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Button fx:id="deletePart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
-               <Button fx:id="modifyPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
-               <Button fx:id="addPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
+               <Button fx:id="deletePart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onDeletePartButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
+               <Button fx:id="modifyPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onModifyPartButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
+               <Button fx:id="addPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onAddPartButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
             </children>
             <opaqueInsets>
                <Insets top="20.0" />
@@ -123,12 +121,12 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
+               <Button fx:id="deleteProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onDeleteProductButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
+               <Button fx:id="modifyProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onModifyProductButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
+               <Button fx:id="addProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onAddProductButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
             </children>
          </GridPane>
       </children>
    </GridPane>
-   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Exit" />
+   <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="25.0" prefWidth="75.0" text="Exit" />
 </VBox>
