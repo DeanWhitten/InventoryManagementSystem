@@ -1,31 +1,55 @@
 package com.deanwhitten.inventorymanagementsystem;
 
-import com.deanwhitten.inventorymanagementsystem.Model.Inventory;
+import com.deanwhitten.inventorymanagementsystem.Model.*;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Main_Controller {
-    Inventory inv;
+public class Main_Controller implements Initializable {
+    //Inventory inv = new Inventory();
 
     @FXML
     private TextField partSearchBar;
     @FXML
     private TableView partsTable;
+    @FXML
+    private TableColumn<Part, Integer> partID_Col;
+    @FXML
+    private TableColumn<Part, String> partName_Col;
+    @FXML
+    private TableColumn<Part, Integer> partInv_Col;
+    @FXML
+    private TableColumn<Part, Double> partPrice_Col;
 
     @FXML
     private TextField productSearchBar;
     @FXML
     private TableView productsTable;
+    @FXML
+    private TableColumn<Product, Integer> productID_Col;
+    @FXML
+    private TableColumn<Product, String> productName_Col;
+    @FXML
+    private TableColumn<Product, Integer> productInv_Col;
+    @FXML
+    private TableColumn<Product, Double> productPrice_Col;
+    
 
     public Button addPart;
     public Button modifyPart;
@@ -35,6 +59,9 @@ public class Main_Controller {
     public Button deleteProduct;
     public Button exitButton;
 
+    private ObservableList<Part> partInventory = FXCollections.observableArrayList();
+    private ObservableList<Product> productInventory = FXCollections.observableArrayList();
+    
 
     private String partSearchText = "";
     @FXML
@@ -117,4 +144,26 @@ public class Main_Controller {
     public void onExitButtonClick(MouseEvent mouseEvent){
         Platform.exit();
     };
+
+
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //Binding part table columns
+        partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        //Binding product table columns
+        productID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
+    
+
 }

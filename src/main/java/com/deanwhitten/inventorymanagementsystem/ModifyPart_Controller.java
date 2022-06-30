@@ -1,6 +1,8 @@
 package com.deanwhitten.inventorymanagementsystem;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 public class ModifyPart_Controller {
     public RadioButton inHouseRadio;
@@ -19,4 +21,20 @@ public class ModifyPart_Controller {
 
     public Button saveButton;
     public Button cancelButton;
+
+    private boolean isOutsourced;
+
+    @FXML
+    protected void inHouseRadioClicked(MouseEvent mouseEvent){
+        isOutsourced = false;
+        toggled_label.setText("Machine ID");
+        outsourcedRadio.setSelected(false);
+    }
+
+    @FXML
+    protected void outsourcedRadioClicked(MouseEvent mouseEvent){
+        isOutsourced = true;
+        toggled_label.setText("Company Name");
+        inHouseRadio.setSelected(false);
+    }
 }

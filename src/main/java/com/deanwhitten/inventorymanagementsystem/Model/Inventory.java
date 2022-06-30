@@ -7,6 +7,15 @@ public class Inventory{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
+
+    public static ObservableList<Product> getAllProducts() {
+        return allProducts;
+    }
+
+    public static ObservableList<Part> getAllParts() {
+        return allParts;
+    }
+
     public static void addPart(Part newPart){
         allParts.add(newPart);
     }
@@ -85,4 +94,12 @@ public class Inventory{
            return false;
        }
    }
+
+    public int partListSize() {
+        return allParts.size();
+    }
+
+    public int productListSize() {
+        return allProducts.size();
+    }
 }
