@@ -2,11 +2,13 @@ package com.deanwhitten.inventorymanagementsystem;
 
 import com.deanwhitten.inventorymanagementsystem.Model.Inventory;
 import com.deanwhitten.inventorymanagementsystem.Model.Part;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -29,7 +31,7 @@ public class AddPart_Controller implements Initializable {
 
     public Button saveButton;
     public Button cancelButton;
-    public Label errorLabel;
+    public Label errorTextLabel;
 
     private boolean isOutsourced;
 
@@ -55,8 +57,8 @@ public class AddPart_Controller implements Initializable {
 
     }
     @FXML
-    protected void cancelButtonClicked(MouseEvent mouseEvent){
-
+    protected void cancelButtonClicked(ActionEvent event) throws IOException {
+        returnToMainPage(event);
     }
 
 
@@ -72,14 +74,6 @@ public class AddPart_Controller implements Initializable {
         Random randomNum = new Random();
         Integer num = randomNum.nextInt(1000);
 
-       
-           //if (inv.partListSize() == 0) {
-           //          id_input.setText(num.toString());
-
-           //}
-
-
-
         match = verifyIfTaken(num);
 
         if (match == false) {
@@ -94,5 +88,10 @@ public class AddPart_Controller implements Initializable {
     private boolean verifyIfTaken(Integer num) {
         Part match = inv.lookupPart(num);
         return match != null;
+    }
+
+    private void returnToMainPage(ActionEvent event) throws IOException {
+
+        Main_Controller.loadPage("Main_view", event);
     }
 }

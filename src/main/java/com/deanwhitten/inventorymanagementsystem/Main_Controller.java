@@ -1,12 +1,16 @@
 package com.deanwhitten.inventorymanagementsystem;
 
-import com.deanwhitten.inventorymanagementsystem.Model.*;
+import com.deanwhitten.inventorymanagementsystem.Model.Part;
+import com.deanwhitten.inventorymanagementsystem.Model.Product;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -71,30 +75,13 @@ public class Main_Controller implements Initializable {
     };
 
     @FXML
-    protected void onAddPartButtonClick(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Main.class.getResource("Add_Part_view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = new Stage();
-        stage.setTitle("Add Part");
-        stage.setScene(scene);
-        stage.show();
-        
+    protected void onAddPartButtonClick(ActionEvent event) throws IOException {
+        loadPage("Add_Part_view", event);
     };
 
     @FXML
-    protected void onModifyPartButtonClick(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Main.class.getResource("Modify_Part_view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = new Stage();
-        stage.setTitle("Modify Part");
-        stage.setScene(scene);
-        stage.show();
+    protected void onModifyPartButtonClick(ActionEvent event) throws IOException {
+        loadPage("Modify_Part_view", event);
     };
 
     @FXML
@@ -110,29 +97,13 @@ public class Main_Controller implements Initializable {
     };
 
     @FXML
-    protected void onAddProductButtonClick(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Main.class.getResource("Add_Product_view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = new Stage();
-        stage.setTitle("Add Product");
-        stage.setScene(scene);
-        stage.show();
+    protected void onAddProductButtonClick(ActionEvent event) throws IOException {
+        loadPage("Add_Product_view", event);
     };
 
     @FXML
-    protected void onModifyProductButtonClick(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Main.class.getResource("Modify_Product_view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = new Stage();
-        stage.setTitle("Add Product");
-        stage.setScene(scene);
-        stage.show();
+    protected void onModifyProductButtonClick(ActionEvent event) throws IOException {
+        loadPage("Modify_Product_view", event);
     };
 
     @FXML
@@ -146,12 +117,18 @@ public class Main_Controller implements Initializable {
     };
 
 
-
+    public static void loadPage(String page, ActionEvent event)throws IOException{
+            page =  page + ".fxml";
+            Parent parent = FXMLLoader.load(Main.class.getResource(page));
+            Scene scene = new Scene(parent);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         //Binding part table columns
         partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));

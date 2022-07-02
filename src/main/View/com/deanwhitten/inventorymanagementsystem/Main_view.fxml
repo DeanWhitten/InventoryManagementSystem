@@ -95,9 +95,9 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Button fx:id="deletePart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onDeletePartButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
-               <Button fx:id="modifyPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onModifyPartButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
-               <Button fx:id="addPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onAddPartButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
+               <Button fx:id="deletePart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeletePartButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
+               <Button fx:id="modifyPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onModifyPartButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
+               <Button fx:id="addPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddPartButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
             </children>
             <opaqueInsets>
                <Insets top="20.0" />
@@ -114,9 +114,9 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-               <Button fx:id="deleteProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onDeleteProductButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
-               <Button fx:id="modifyProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onModifyProductButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
-               <Button fx:id="addProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onAddProductButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
+               <Button fx:id="deleteProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeleteProductButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
+               <Button fx:id="modifyProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onModifyProductButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
+               <Button fx:id="addProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddProductButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
             </children>
          </GridPane>
       </children>
