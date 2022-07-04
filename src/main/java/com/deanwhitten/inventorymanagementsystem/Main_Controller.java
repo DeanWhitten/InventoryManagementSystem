@@ -1,7 +1,6 @@
 package com.deanwhitten.inventorymanagementsystem;
 
-import com.deanwhitten.inventorymanagementsystem.Model.Part;
-import com.deanwhitten.inventorymanagementsystem.Model.Product;
+import com.deanwhitten.inventorymanagementsystem.Model.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +30,7 @@ public class Main_Controller implements Initializable {
     @FXML
     private TextField partSearchBar;
     @FXML
-    private TableView partsTable;
+    private TableView<Part> partsTable;
     @FXML
     private TableColumn<Part, Integer> partID_Col;
     @FXML
@@ -44,7 +43,7 @@ public class Main_Controller implements Initializable {
     @FXML
     private TextField productSearchBar;
     @FXML
-    private TableView productsTable;
+    private TableView<Product> productsTable;
     @FXML
     private TableColumn<Product, Integer> productID_Col;
     @FXML
@@ -53,7 +52,7 @@ public class Main_Controller implements Initializable {
     private TableColumn<Product, Integer> productInv_Col;
     @FXML
     private TableColumn<Product, Double> productPrice_Col;
-    
+
 
     public Button addPart;
     public Button modifyPart;
@@ -65,82 +64,83 @@ public class Main_Controller implements Initializable {
 
     private ObservableList<Part> partInventory = FXCollections.observableArrayList();
     private ObservableList<Product> productInventory = FXCollections.observableArrayList();
-    
+
 
     private String partSearchText = "";
     @FXML
     protected void onPartsSearchBarInput(KeyEvent keyEvent){
         partSearchText += keyEvent.getCharacter();
          System.out.println(partSearchText);       //swap later w/ inventory search method
-    };
+    }
 
     @FXML
     protected void onAddPartButtonClick(ActionEvent event) throws IOException {
         loadPage("Add_Part_view", event);
-    };
+    }
 
     @FXML
     protected void onModifyPartButtonClick(ActionEvent event) throws IOException {
         loadPage("Modify_Part_view", event);
-    };
+    }
 
     @FXML
     protected void onDeletePartButtonClick(MouseEvent mouseEvent){
 
-    };
+    }
 
     private String productSearchText = "";
     @FXML
     protected void onProductsSearchBarInput(KeyEvent keyEvent){
         productSearchText += keyEvent.getCharacter();
         System.out.println(productSearchText);         //swap later w/ inventory search method
-    };
+    }
 
     @FXML
     protected void onAddProductButtonClick(ActionEvent event) throws IOException {
         loadPage("Add_Product_view", event);
-    };
+    }
 
     @FXML
     protected void onModifyProductButtonClick(ActionEvent event) throws IOException {
         loadPage("Modify_Product_view", event);
-    };
+    }
 
     @FXML
     protected void onDeleteProductButtonClick(MouseEvent mouseEvent){
 
-    };
+    }
 
     @FXML
     public void onExitButtonClick(MouseEvent mouseEvent){
         Platform.exit();
-    };
+    }
 
 
     public static void loadPage(String page, ActionEvent event)throws IOException{
-            page =  page + ".fxml";
-            Parent parent = FXMLLoader.load(Main.class.getResource(page));
-            Scene scene = new Scene(parent);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+        page =  page + ".fxml";
+        Parent parent = FXMLLoader.load(Main.class.getResource(page));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Binding part table columns
+    public void initialize(URL location, ResourceBundle resources) {
+
+        partsTable.setItems(Inventory.getAllParts());
         partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        //Binding product table columns
+        productsTable.setItems(Inventory.getAllProducts());
         productID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
         productName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-    
+
 
 }

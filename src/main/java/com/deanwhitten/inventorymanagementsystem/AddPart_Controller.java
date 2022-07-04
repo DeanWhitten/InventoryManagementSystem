@@ -1,6 +1,8 @@
 package com.deanwhitten.inventorymanagementsystem;
 
+import com.deanwhitten.inventorymanagementsystem.Model.InHouse;
 import com.deanwhitten.inventorymanagementsystem.Model.Inventory;
+import com.deanwhitten.inventorymanagementsystem.Model.Outsourced;
 import com.deanwhitten.inventorymanagementsystem.Model.Part;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +16,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class AddPart_Controller implements Initializable {
-    Inventory inv;
     public RadioButton inHouseRadio;
     public RadioButton outsourcedRadio;
     public ToggleGroup AddPartsRadios;
@@ -31,11 +32,10 @@ public class AddPart_Controller implements Initializable {
 
     public Button saveButton;
     public Button cancelButton;
-    public Label errorTextLabel;
 
     private boolean isOutsourced;
 
-    private int generatedIDnum;
+    private int generatedIdNum;
     
 
    @FXML
@@ -53,9 +53,44 @@ public class AddPart_Controller implements Initializable {
     }
 
     @FXML
-    protected void saveButtonClicked(MouseEvent mouseEvent){
+    void saveButtonClicked(ActionEvent event) {
+       try{
+        int id = generatedIdNum;
+        String name = name_input.getText();
+        double price = Double.parseDouble(priceCost_input.getText());
+        int stock = Integer.parseInt(inv_input.getText());
+        int min = Integer.parseInt(min_input.getText());
+        int max = Integer.parseInt(max_input.getText());
+        int machineId;
+        String compName;
 
+        if (!(name.isEmpty() || name.isBlank()) ) {
+            if (!(min <= 0 || min >= max) && (stock < min || stock > max)) {
+                if (inHouseRadio.isSelected()) {
+                    machineId = Integer.parseInt(m_c_Toggled_input.getText());
+                    InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);
+                    try{
+                        Inventory.addPart(newPart);
+                        returnToMainPage(event);
+                    } catch (Exception e) {
+                        System.out.println("PART ADD FAIL");
+                    }
+                } else if (outsourcedRadio.isSelected() || isOutsourced) {
+                    compName = m_c_Toggled_input.getText();
+                    Outsourced newPart = new Outsourced(id, name, price, stock, min, max, compName);
+                    try{
+                        Inventory.addPart(newPart);
+                        returnToMainPage(event);
+                    } catch (Exception e) {
+                        System.out.println("PART ADD FAIL");
+                    }
+                }
+            }
+        } } catch (Exception e){
+           System.out.println("PART ADD FAIL");
+       }
     }
+    
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
@@ -64,20 +99,20 @@ public class AddPart_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        generatedIDnum = generatePartID();
+        generatedIdNum = generatePartID();
 
-        id_input.setText("Auto-Gen: " + generatedIDnum);
+        id_input.setText("Auto-Gen: " + generatedIdNum);
     }
 
     private int generatePartID() {
         boolean match;
         Random randomNum = new Random();
-        Integer num = randomNum.nextInt(1000);
+        int num = randomNum.nextInt(10003);
 
         match = verifyIfTaken(num);
 
-        if (match == false) {
-            id_input.setText(num.toString());
+        if (!match) {
+            id_input.setText(Integer.toString(num));
         } else {
             generatePartID();
         }
@@ -86,7 +121,7 @@ public class AddPart_Controller implements Initializable {
     }
 
     private boolean verifyIfTaken(Integer num) {
-        Part match = inv.lookupPart(num);
+        Part match = Inventory.lookupPart(num);
         return match != null;
     }
 
