@@ -129,17 +129,20 @@ public class Main_Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        partsTable.setItems(Inventory.getAllParts());
-        partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        partID_Col.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
         partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        productsTable.setItems(Inventory.getAllProducts());
+
         productID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
         productName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        partsTable.setItems(Inventory.getAllParts());
+        productsTable.setItems(Inventory.getAllProducts());
     }
 
 
