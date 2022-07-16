@@ -54,20 +54,20 @@
                </padding>
             </Label>
             <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="9" />
-            <RadioButton fx:id="inHouseRadio" mnemonicParsing="false" selected="true" text="In-House" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+            <RadioButton fx:id="inHouseRadio" mnemonicParsing="false" onMouseClicked="#inHouseRadioClicked" selected="true" text="In-House" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <toggleGroup>
                   <ToggleGroup fx:id="modifyPartsRadios" />
                </toggleGroup>
             </RadioButton>
-            <TextField fx:id="id_input" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="id_input" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TextField fx:id="name_input" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField fx:id="inv_input" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <TextField fx:id="priceCost_input" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <TextField fx:id="max_input" GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <TextField fx:id="m_c_Toggled_input" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <TextField fx:id="min_input" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-            <RadioButton fx:id="outsourcedRadio" mnemonicParsing="false" text="Outsourced" toggleGroup="$modifyPartsRadios" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <RadioButton fx:id="outsourcedRadio" mnemonicParsing="false" onMouseClicked="#outsourcedRadioClicked" text="Outsourced" toggleGroup="$modifyPartsRadios" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

@@ -65,6 +65,7 @@ public class Main_Controller implements Initializable {
     private ObservableList<Part> partInventory = FXCollections.observableArrayList();
     private ObservableList<Product> productInventory = FXCollections.observableArrayList();
 
+    public static Part selectedPart;
 
     private String partSearchText = "";
     @FXML
@@ -80,6 +81,8 @@ public class Main_Controller implements Initializable {
 
     @FXML
     protected void onModifyPartButtonClick(ActionEvent event) throws IOException {
+        selectedPart = partsTable.getSelectionModel().getSelectedItem();
+
         loadPage("Modify_Part_view", event);
     }
 

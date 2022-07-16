@@ -4,11 +4,13 @@ import com.deanwhitten.inventorymanagementsystem.Model.InHouse;
 import com.deanwhitten.inventorymanagementsystem.Model.Inventory;
 import com.deanwhitten.inventorymanagementsystem.Model.Outsourced;
 import com.deanwhitten.inventorymanagementsystem.Model.Part;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,41 +50,42 @@ public class ModifyPart_Controller implements Initializable {
         toggled_label.setText("Company Name");
         inHouseRadio.setSelected(false);
     }
+    @FXML
+    protected void cancelButtonClicked(ActionEvent event) throws IOException {
+        returnToMainPage(event);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setData();
+        part = Main_Controller.selectedPart;
+
+        setData(part);
     }
 
-    private void setData() {
+    private void setData(Part part) {
+        name_input.setText(part.getName());
+        id_input.setText((Integer.toString(part.getId())));
+        inv_input.setText((Integer.toString(part.getStock())));
+        priceCost_input.setText((Double.toString(part.getPrice())));
+        min_input.setText((Integer.toString(part.getMin())));
+        max_input.setText((Integer.toString(part.getMax())));
 
         if (part instanceof InHouse) {
-
-            InHouse part1 = (InHouse) part;
             inHouseRadio.setSelected(true);
             toggled_label.setText("Machine ID");
-            this.name_input.setText(part1.getName());
-            this.id_input.setText((Integer.toString(part1.getId())));
-            this.inv_input.setText((Integer.toString(part1.getStock())));
-            this.priceCost_input.setText((Double.toString(part1.getPrice())));
-            this.min_input.setText((Integer.toString(part1.getMin())));
-            this.max_input.setText((Integer.toString(part1.getMax())));
-            this.m_c_Toggled_input.setText((Integer.toString(part1.getMachineID())));
+            m_c_Toggled_input.setText((Integer.toString(((InHouse) part).getMachineID())));
 
         }
 
         if (part instanceof Outsourced) {
-
-            Outsourced part2 = (Outsourced) part;
             outsourcedRadio.setSelected(true);
             toggled_label.setText("Company Name");
-            this.name_input.setText(part2.getName());
-            this.id_input.setText((Integer.toString(part2.getId())));
-            this.inv_input.setText((Integer.toString(part2.getStock())));
-            this.priceCost_input.setText((Double.toString(part2.getPrice())));
-            this.min_input.setText((Integer.toString(part2.getMin())));
-            this.max_input.setText((Integer.toString(part2.getMax())));
-            this.m_c_Toggled_input.setText(part2.getCompanyName());
+            m_c_Toggled_input.setText(((Outsourced) part).getCompanyName());
         }
+    }
+
+    private void returnToMainPage(ActionEvent event) throws IOException {
+
+        Main_Controller.loadPage("Main_view", event);
     }
 }
