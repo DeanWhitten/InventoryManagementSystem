@@ -26,17 +26,15 @@ public class AddPart_Controller implements Initializable {
     public TextField priceCost_input;
     public TextField max_input;
     public TextField min_input;
-
     public Label toggled_label;
     public TextField m_c_Toggled_input;
 
     public Button saveButton;
     public Button cancelButton;
+    public Label addPart_ErrorLabel;
 
     private boolean isOutsourced;
-
     private int generatedIdNum;
-    
 
    @FXML
     protected void inHouseRadioClicked(MouseEvent mouseEvent){
@@ -96,7 +94,6 @@ public class AddPart_Controller implements Initializable {
         returnToMainPage(event);
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         generatedIdNum = generatePartID();
@@ -116,7 +113,6 @@ public class AddPart_Controller implements Initializable {
         } else {
             generatePartID();
         }
-
         return num;
     }
 

@@ -70,5 +70,6 @@
             <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="352.0" text="err" textAlignment="CENTER" textFill="#fc0000" GridPane.columnIndex="2" GridPane.rowIndex="9" />
          </children>
       </GridPane>
+      <Label fx:id="addPart_ErrorLabel" alignment="CENTER" layoutX="5.0" layoutY="461.0" opacity="0.0" prefHeight="17.0" prefWidth="393.0" text="Label" textFill="RED" />
    </children>
 </AnchorPane>

@@ -105,6 +105,7 @@
                <Button fx:id="deletePart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeletePartButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
                <Button fx:id="modifyPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onModifyPartButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
                <Button fx:id="addPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddPartButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
+               <Label fx:id="partsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="210.0" text="Label" textFill="RED" />
             </children>
             <opaqueInsets>
                <Insets top="20.0" />
@@ -124,6 +125,7 @@
                <Button fx:id="deleteProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeleteProductButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
                <Button fx:id="modifyProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onModifyProductButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
                <Button fx:id="addProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddProductButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
+               <Label fx:id="productsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="207.0" text="Label" textFill="RED" />
             </children>
          </GridPane>
       </children>

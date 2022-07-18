@@ -1,6 +1,8 @@
 package com.deanwhitten.inventorymanagementsystem;
 
-import com.deanwhitten.inventorymanagementsystem.Model.*;
+import com.deanwhitten.inventorymanagementsystem.Model.Inventory;
+import com.deanwhitten.inventorymanagementsystem.Model.Part;
+import com.deanwhitten.inventorymanagementsystem.Model.Product;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -25,8 +24,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Main_Controller implements Initializable {
-    //Inventory inv = new Inventory();
-
     @FXML
     private TextField partSearchBar;
     @FXML
@@ -53,21 +50,24 @@ public class Main_Controller implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPrice_Col;
 
-
+    private ObservableList<Part> partInventory = FXCollections.observableArrayList();
+    private String partSearchText = "";
+    public static Part selectedPart;
     public Button addPart;
     public Button modifyPart;
     public Button deletePart;
+    public Label partsErrorLabel;
+
+    private ObservableList<Product> productInventory = FXCollections.observableArrayList();
+    private String productSearchText = "";
+    public static Product selectedProduct;
     public Button addProduct;
     public Button modifyProduct;
     public Button deleteProduct;
+    public Label productsErrorLabel;
+
     public Button exitButton;
 
-    private ObservableList<Part> partInventory = FXCollections.observableArrayList();
-    private ObservableList<Product> productInventory = FXCollections.observableArrayList();
-
-    public static Part selectedPart;
-
-    private String partSearchText = "";
     @FXML
     protected void onPartsSearchBarInput(KeyEvent keyEvent){
         partSearchText += keyEvent.getCharacter();
@@ -83,7 +83,10 @@ public class Main_Controller implements Initializable {
     protected void onModifyPartButtonClick(ActionEvent event) throws IOException {
         selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
-        loadPage("Modify_Part_view", event);
+        if(selectedPart != null){
+            loadPage("Modify_Part_view", event);
+        }
+
     }
 
     @FXML
@@ -91,7 +94,6 @@ public class Main_Controller implements Initializable {
 
     }
 
-    private String productSearchText = "";
     @FXML
     protected void onProductsSearchBarInput(KeyEvent keyEvent){
         productSearchText += keyEvent.getCharacter();
@@ -118,7 +120,6 @@ public class Main_Controller implements Initializable {
         Platform.exit();
     }
 
-
     public static void loadPage(String page, ActionEvent event)throws IOException{
         page =  page + ".fxml";
         Parent parent = FXMLLoader.load(Main.class.getResource(page));
@@ -128,17 +129,13 @@ public class Main_Controller implements Initializable {
         stage.show();
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
-        partID_Col.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
+        partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-
+        
         productID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
         productName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -147,6 +144,5 @@ public class Main_Controller implements Initializable {
         partsTable.setItems(Inventory.getAllParts());
         productsTable.setItems(Inventory.getAllProducts());
     }
-
 
 }

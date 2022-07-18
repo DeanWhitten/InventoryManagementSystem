@@ -28,12 +28,12 @@ public class ModifyPart_Controller implements Initializable {
     public TextField priceCost_input;
     public TextField max_input;
     public TextField min_input;
-
     public Label toggled_label;
     public TextField m_c_Toggled_input;
 
     public Button saveButton;
     public Button cancelButton;
+    public Label modifyPart_ErrorLabel;
 
     private boolean isOutsourced;
 
@@ -85,7 +85,6 @@ public class ModifyPart_Controller implements Initializable {
     }
 
     private void returnToMainPage(ActionEvent event) throws IOException {
-
         Main_Controller.loadPage("Main_view", event);
     }
 }
