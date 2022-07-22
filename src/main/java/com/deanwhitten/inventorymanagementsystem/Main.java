@@ -35,7 +35,6 @@ public class Main extends Application {
         Product product2 = new Product(2, "Gaming PC", 1499.49, 39, 1, 10);
         product2.addAssociatedPart(inhousePart2);
         Product product3 = new Product(3, "3D Printer", 300.00, 20, 1, 2);
-        product3.addAssociatedPart(outsourcedPart3);
 
         Inventory.addPart(inhousePart1);
         Inventory.addPart(inhousePart2);

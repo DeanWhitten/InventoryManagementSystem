@@ -62,8 +62,8 @@ public class AddPart_Controller implements Initializable {
         int machineId;
         String compName;
 
-        if (!(name.isEmpty() || name.isBlank()) ) {
-            if (!(min <= 0 || min >= max) && (stock < min || stock > max)) {
+        if ( !(name.isEmpty() || name.isBlank()) ) {
+            if ( !(min <= 0 || min >= max) && (stock < min || stock > max) ) {
                 if (inHouseRadio.isSelected()) {
                     machineId = Integer.parseInt(m_c_Toggled_input.getText());
                     InHouse newPart = new InHouse(id, name, price, stock, min, max, machineId);

@@ -7,7 +7,6 @@ public class Inventory{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-
     public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
@@ -49,9 +48,9 @@ public class Inventory{
 
     public static ObservableList<Part> lookupPart(String partName){
         ObservableList<Part> partsFound = FXCollections.observableArrayList();
-
+         partsFound.clear();
         for(Part part: allParts){
-            if(part.getName().equals(partName)){
+            if(part.getName().toLowerCase().contains(partName.toLowerCase())){
                 partsFound.add(part);
             }
         }
@@ -60,9 +59,9 @@ public class Inventory{
 
     public static ObservableList<Product> lookupProduct(String productName){
        ObservableList<Product> productsFound = FXCollections.observableArrayList();
-
+       productsFound.clear();
        for(Product product: allProducts){
-           if(product.getName().equals(productName)){
+           if(product.getName().toLowerCase().contains(productName.toLowerCase())){
                productsFound.add(product);
            }
        }
@@ -87,7 +86,7 @@ public class Inventory{
    }
 
     public static boolean deleteProduct(Product productSelected){
-       if(allProducts.contains(productSelected)){
+       if(allProducts.contains(productSelected) && productSelected.getAllAssociatedParts().isEmpty()){
            allProducts.remove(productSelected);
            return true;
        }else{

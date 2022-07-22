@@ -18,29 +18,31 @@
     </padding>
 
     <Label fx:id="welcomeText" />
-   <Label alignment="TOP_LEFT" prefHeight="91.0" prefWidth="960.0" text="Inventory Management System">
+   <Label alignment="TOP_LEFT" prefHeight="32.0" prefWidth="960.0" text="Inventory Management System">
       <font>
          <Font name="System Bold" size="18.0" />
       </font>
    </Label>
    <GridPane alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="960.0">
      <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="490.0" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="50.0" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="490.0" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="460.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="67.0" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="441.0" />
      </columnConstraints>
      <rowConstraints>
-       <RowConstraints maxHeight="142.0" minHeight="0.0" prefHeight="36.0" vgrow="SOMETIMES" />
-       <RowConstraints maxHeight="369.0" minHeight="10.0" prefHeight="288.0" vgrow="SOMETIMES" />
-         <RowConstraints maxHeight="369.0" minHeight="9.0" prefHeight="48.0" vgrow="SOMETIMES" />
+       <RowConstraints maxHeight="142.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
+       <RowConstraints maxHeight="369.0" minHeight="10.0" prefHeight="267.0" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="369.0" minHeight="9.0" prefHeight="50.0" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="369.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="369.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
          <TableView fx:id="partsTable" prefHeight="256.0" prefWidth="480.0" GridPane.rowIndex="1">
            <columns>
-             <TableColumn id="id" fx:id="partID_Col" prefWidth="68.0" text="Part ID" />
-             <TableColumn id="name" fx:id="partName_Col" prefWidth="178.0" text="Part Name" />
-               <TableColumn id="stock" fx:id="partInv_Col" prefWidth="100.0" text="Inventory Level" />
-               <TableColumn id="price" fx:id="partPrice_Col" prefWidth="133.0" text="Price / Cost per Unit" />
+             <TableColumn id="id" fx:id="partID_Col" prefWidth="68.0" resizable="false" text="Part ID" />
+             <TableColumn id="name" fx:id="partName_Col" prefWidth="134.0" resizable="false" text="Part Name" />
+               <TableColumn id="stock" fx:id="partInv_Col" prefWidth="100.0" resizable="false" text="Inventory Level" />
+               <TableColumn id="price" fx:id="partPrice_Col" prefWidth="153.0" resizable="false" text="Price / Cost per Unit" />
            </columns>
          </TableView>
          <GridPane>
@@ -65,10 +67,10 @@
          </GridPane>
          <TableView fx:id="productsTable" prefHeight="288.0" prefWidth="471.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <columns>
-               <TableColumn fx:id="productID_Col" prefWidth="68.0" text="Product ID" />
-               <TableColumn fx:id="productName_Col" prefWidth="178.0" text="Product Name" />
-               <TableColumn fx:id="productInv_Col" prefWidth="100.0" text="Inventory Level" />
-               <TableColumn fx:id="productPrice_Col" prefWidth="133.0" text="Price / Cost per Unit" />
+               <TableColumn fx:id="productID_Col" prefWidth="68.0" resizable="false" text="Product ID" />
+               <TableColumn fx:id="productName_Col" prefWidth="129.0" resizable="false" text="Product Name" />
+               <TableColumn fx:id="productInv_Col" prefWidth="94.0" resizable="false" text="Inventory Level" />
+               <TableColumn fx:id="productPrice_Col" prefWidth="146.0" resizable="false" text="Price / Cost per Unit" />
             </columns>
          </TableView>
          <GridPane GridPane.columnIndex="2">
@@ -105,7 +107,6 @@
                <Button fx:id="deletePart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeletePartButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
                <Button fx:id="modifyPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onModifyPartButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
                <Button fx:id="addPart" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddPartButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
-               <Label fx:id="partsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="210.0" text="Label" textFill="RED" />
             </children>
             <opaqueInsets>
                <Insets top="20.0" />
@@ -125,10 +126,11 @@
                <Button fx:id="deleteProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeleteProductButtonClick" prefWidth="75.0" text="Delete" GridPane.columnIndex="3" />
                <Button fx:id="modifyProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onModifyProductButtonClick" prefWidth="75.0" text="Modify" GridPane.columnIndex="2" />
                <Button fx:id="addProduct" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddProductButtonClick" prefWidth="75.0" text="Add" GridPane.columnIndex="1" />
-               <Label fx:id="productsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="207.0" text="Label" textFill="RED" />
             </children>
          </GridPane>
+         <Label fx:id="partsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="467.0" text="Label" textFill="RED" GridPane.rowIndex="3" />
+         <Label fx:id="productsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="471.0" text="Label" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+         <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="25.0" prefWidth="75.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       </children>
    </GridPane>
-   <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="25.0" prefWidth="75.0" text="Exit" />
 </VBox>

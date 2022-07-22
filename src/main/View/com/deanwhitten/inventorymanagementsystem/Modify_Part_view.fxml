@@ -52,7 +52,7 @@
                   <Insets left="20.0" />
                </padding>
             </Label>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="25.0" prefWidth="41.0" text="Save" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="9" />
             <RadioButton fx:id="inHouseRadio" mnemonicParsing="false" onMouseClicked="#inHouseRadioClicked" selected="true" text="In-House" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <toggleGroup>
