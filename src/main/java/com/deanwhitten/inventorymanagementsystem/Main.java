@@ -8,16 +8,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Main.
+ */
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main_view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+        stage. setResizable(false);
         stage.setTitle("Inventory Management System");
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         //InHouse Sample Parts
         Part inhousePart1 = new InHouse(1, "Custom coiled USB - C cord", 1.99, 205, 5, 50, 136789);
@@ -31,9 +40,9 @@ public class Main extends Application {
 
         //Sample Products
         Product product1 = new Product(1, "Laptop", 600.00, 43, 1, 5);
-        product1.addAssociatedPart(inhousePart1);
+        product1.addAssociatedPart(outsourcedPart1);
         Product product2 = new Product(2, "Gaming PC", 1499.49, 39, 1, 10);
-        product2.addAssociatedPart(inhousePart2);
+        product2.addAssociatedPart(inhousePart3);
         Product product3 = new Product(3, "3D Printer", 300.00, 20, 1, 2);
 
         Inventory.addPart(inhousePart1);

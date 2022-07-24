@@ -14,86 +14,77 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The type Modify part controller.
+ */
 public class ModifyPart_Controller implements Initializable {
+    /**
+     * The Inv.
+     */
     Inventory inv;
     private Part part;
     private static int index;
 
+    /**
+     * The In house radio.
+     */
     public RadioButton inHouseRadio;
+    /**
+     * The Outsourced radio.
+     */
     public RadioButton outsourcedRadio;
+    /**
+     * The Modify parts radios.
+     */
     public ToggleGroup modifyPartsRadios;
 
+    /**
+     * The Id input.
+     */
     public TextField id_input;
+    /**
+     * The Name input.
+     */
     public TextField name_input;
+    /**
+     * The Inv input.
+     */
     public TextField inv_input;
+    /**
+     * The Price cost input.
+     */
     public TextField priceCost_input;
+    /**
+     * The Max input.
+     */
     public TextField max_input;
+    /**
+     * The Min input.
+     */
     public TextField min_input;
+    /**
+     * The Toggled label.
+     */
     public Label toggled_label;
+    /**
+     * The M c toggled input.
+     */
     public TextField m_c_Toggled_input;
 
+    /**
+     * The Save button.
+     */
     public Button saveButton;
+    /**
+     * The Cancel button.
+     */
     public Button cancelButton;
+    /**
+     * The Modify part error label.
+     */
     public Label modifyPart_ErrorLabel;
 
     private boolean isOutsourced;
-
-    @FXML
-    protected void inHouseRadioClicked(MouseEvent mouseEvent){
-        isOutsourced = false;
-        toggled_label.setText("Machine ID");
-        outsourcedRadio.setSelected(false);
-        m_c_Toggled_input.clear();
-    }
-
-    @FXML
-    protected void outsourcedRadioClicked(MouseEvent mouseEvent){
-        isOutsourced = true;
-        toggled_label.setText("Company Name");
-        inHouseRadio.setSelected(false);
-        m_c_Toggled_input.clear();
-    }
-    
-    @FXML
-    protected void saveButtonClicked(ActionEvent event) throws IOException {
-        int id = Integer.parseInt(id_input.getText());
-        String name = name_input.getText();
-        int stock = Integer.parseInt(inv_input.getText());
-        double price = Double.parseDouble(priceCost_input.getText());
-        int min = Integer.parseInt(min_input.getText());
-        int max = Integer.parseInt(max_input.getText());
-
-        modifyPart_ErrorLabel.setOpacity(0);
-
-        if(min > max){
-            modifyPart_ErrorLabel.setOpacity(1);
-            modifyPart_ErrorLabel.setText("Error: Min must be less than Max");
-        }else {
-            
-            try{
-                if(isOutsourced){
-                    String compName = m_c_Toggled_input.getText();
-                    Outsourced mod_Part = new Outsourced(id, name, price,stock,min,max,compName);
-                    Inventory.updatePart(index, mod_Part);
-                    returnToMainPage(event);
-                }else{
-                    int machineId = Integer.parseInt(m_c_Toggled_input.getText());
-                    InHouse mod_part = new InHouse(id, name, price, stock, min, max,machineId);
-                    Inventory.updatePart(index, mod_part);
-                    returnToMainPage(event);
-                }
-            
-            }catch (NumberFormatException e){
-                modifyPart_ErrorLabel.setOpacity(1);
-                modifyPart_ErrorLabel.setText("Error: NumberFormatException - SOMETHING WENT WRONG");
-            }
-        }
-    }
-
-    @FXML
-    protected void cancelButtonClicked(ActionEvent event) throws IOException {
-        returnToMainPage(event);
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,7 +113,173 @@ public class ModifyPart_Controller implements Initializable {
         }
     }
 
+    /**
+     * In house radio clicked.
+     *
+     * @param mouseEvent the mouse event
+     */
+    @FXML
+    protected void inHouseRadioClicked(MouseEvent mouseEvent){
+        isOutsourced = false;
+        toggled_label.setText("Machine ID");
+        outsourcedRadio.setSelected(false);
+        m_c_Toggled_input.clear();
+        uiErrorMsgRESET();
+    }
+
+    /**
+     * Outsourced radio clicked.
+     *
+     * @param mouseEvent the mouse event
+     */
+    @FXML
+    protected void outsourcedRadioClicked(MouseEvent mouseEvent){
+        isOutsourced = true;
+        toggled_label.setText("Company Name");
+        inHouseRadio.setSelected(false);
+        m_c_Toggled_input.clear();
+        uiErrorMsgRESET();
+    }
+
+    /**
+     * Save button clicked.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
+    @FXML
+    protected void saveButtonClicked(ActionEvent event) throws IOException {
+        try{
+            uiErrorMsgRESET();
+            if( !(name_input.getText().isEmpty() || name_input.getText().isBlank() )
+                    || !( inv_input.getText().isEmpty() || inv_input.getText().isBlank() )
+                    || !( priceCost_input.getText().isEmpty() || priceCost_input.getText().isBlank() )
+                    || !( max_input.getText().isEmpty() || max_input.getText().isBlank() )
+                    || !( max_input.getText().isEmpty() || min_input.getText().isBlank() )
+                    || !( m_c_Toggled_input.getText().isEmpty() || m_c_Toggled_input.getText().isBlank() )
+            ){
+                int id = Integer.parseInt(id_input.getText());
+                String name = name_input.getText();
+                int stock = Integer.parseInt(inv_input.getText());
+                double price = Double.parseDouble(priceCost_input.getText());
+                int min = Integer.parseInt(min_input.getText());
+                int max = Integer.parseInt(max_input.getText());
+
+                int machineId;
+                String compName;
+
+                if ( (min >= 0 &&  min <= max) && (stock > min && stock < max) ) {
+
+                    if (inHouseRadio.isSelected() && !m_c_Toggled_input.getText().equals("")) {
+                        machineId = Integer.parseInt(m_c_Toggled_input.getText());
+                        InHouse updatedPart = new InHouse(id, name, price, stock, min, max, machineId);
+                        try{
+                            Inventory.updatePart(index, updatedPart);
+                            returnToMainPage(event);
+                        } catch (Exception e) {
+                            uiErrorMsgHandler(ErrorType.UNK);
+                        }
+                    } else{
+                        uiErrorMsgHandler(ErrorType.MISSING_INPUT);
+                    }
+
+                    if ((outsourcedRadio.isSelected() || isOutsourced) && !m_c_Toggled_input.getText().equals("")) {
+                        compName = m_c_Toggled_input.getText();
+                        Outsourced updatedPart = new Outsourced(id, name, price, stock, min, max, compName);
+                        try{
+                            Inventory.updatePart(index, updatedPart);
+                            returnToMainPage(event);
+                        } catch (Exception e) {
+                            uiErrorMsgHandler(ErrorType.UNK);
+                        }
+                    }else{
+                        uiErrorMsgHandler(ErrorType.MISSING_INPUT);
+                    }
+
+                }  else{
+                    if(!(stock > min && stock < max)){
+                        uiErrorMsgHandler(ErrorType.STOCK_RANGE);
+                    }
+                    if(!(min >= 0 &&  min <= max)){
+                        uiErrorMsgHandler(ErrorType.MIN_MAX);
+                    }
+                }
+            } else{
+                uiErrorMsgHandler(ErrorType.MISSING_INPUT);
+            }
+
+        } catch (Exception e){
+            uiErrorMsgHandler(ErrorType.UNK);
+        }
+
+    }
+
+    /**
+     * Cancel button clicked.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
+    @FXML
+    protected void cancelButtonClicked(ActionEvent event) throws IOException {
+        returnToMainPage(event);
+    }
+
+
+
     private void returnToMainPage(ActionEvent event) throws IOException {
         Main_Controller.loadPage("Main_view", event);
+    }
+
+    /**
+     * The enum Error type.
+     */
+    enum ErrorType{
+        /**
+         * Unk error type.
+         */
+        UNK,
+        /**
+         * Missing input error type.
+         */
+        MISSING_INPUT,
+        /**
+         * Min max error type.
+         */
+        MIN_MAX,
+        /**
+         * Stock range error type.
+         */
+        STOCK_RANGE
+    }
+
+    /**
+     * Ui error msg handler.
+     *
+     * @param errorType the error type
+     */
+    public void uiErrorMsgHandler(ErrorType errorType){
+        modifyPart_ErrorLabel.setOpacity(1);
+        switch(errorType){
+            case UNK -> {
+                modifyPart_ErrorLabel.setText("ERROR- SOMETHING WENT WRONG, Check inputs");
+            }
+            case MISSING_INPUT -> {
+                modifyPart_ErrorLabel.setText("ERROR- INPUTS MISSING" );
+            }
+            case MIN_MAX -> {
+                modifyPart_ErrorLabel.setText("ERROR- MIN HAS TO BE LESS THAN MAX!");
+            }
+            case STOCK_RANGE -> {
+                modifyPart_ErrorLabel.setText("ERROR- INV should be between min and max!");
+            }
+        }
+    }
+
+    /**
+     * Ui error msg reset.
+     */
+    public void uiErrorMsgRESET(){
+        modifyPart_ErrorLabel.setOpacity(0);
     }
 }

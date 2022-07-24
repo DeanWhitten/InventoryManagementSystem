@@ -131,6 +131,36 @@
          <Label fx:id="partsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="467.0" text="Label" textFill="RED" GridPane.rowIndex="3" />
          <Label fx:id="productsErrorLabel" alignment="CENTER" opacity="0.0" prefHeight="17.0" prefWidth="471.0" text="Label" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#onExitButtonClick" prefHeight="25.0" prefWidth="75.0" text="Exit" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="150.0" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.0" minWidth="10.0" prefWidth="60.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="40.0" />
+             <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="200.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <Button fx:id="products_yes_btn" disable="true" mnemonicParsing="false" onAction="#productsYES_clicked" opacity="0.0" text="Yes" GridPane.columnIndex="1" />
+               <Button fx:id="products_no_btn" disable="true" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#productsNO_clicked" opacity="0.0" text="No" GridPane.columnIndex="3" />
+            </children>
+         </GridPane>
+         <GridPane layoutX="531.0" layoutY="417.0" prefHeight="30.0" prefWidth="394.0" GridPane.rowIndex="4">
+            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="150.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="60.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="40.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="200.0" />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+               <Button fx:id="parts_yes_btn" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#partsYES_clicked" opacity="0.0" text="Yes" GridPane.columnIndex="1" />
+               <Button fx:id="parts_no_btn" disable="true" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#partsNO_clicked" opacity="0.0" text="No" GridPane.columnIndex="3" />
+            </children>
+         </GridPane>
       </children>
    </GridPane>
 </VBox>

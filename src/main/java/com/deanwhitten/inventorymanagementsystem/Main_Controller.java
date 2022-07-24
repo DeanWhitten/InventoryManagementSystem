@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The type Main controller.
+ */
 public class Main_Controller implements Initializable {
     @FXML
     private TextField partSearchBar;
@@ -51,19 +54,68 @@ public class Main_Controller implements Initializable {
     private TableColumn<Product, Double> productPrice_Col;
 
     private ObservableList<Part> foundParts = FXCollections.observableArrayList();
+    /**
+     * The constant selectedPart.
+     */
     public static Part selectedPart;
+    /**
+     * The Add part.
+     */
     public Button addPart;
+    /**
+     * The Modify part.
+     */
     public Button modifyPart;
+    /**
+     * The Delete part.
+     */
     public Button deletePart;
+    /**
+     * The Parts error label.
+     */
     public  Label partsErrorLabel;
+    /**
+     * The Parts yes btn.
+     */
+    public Button parts_yes_btn;
+    /**
+     * The Parts no btn.
+     */
+    public Button parts_no_btn;
 
     private ObservableList<Product> foundProducts = FXCollections.observableArrayList();
+    /**
+     * The constant selectedProduct.
+     */
     public static Product selectedProduct;
+    /**
+     * The Add product.
+     */
     public Button addProduct;
+    /**
+     * The Modify product.
+     */
     public Button modifyProduct;
+    /**
+     * The Delete product.
+     */
     public Button deleteProduct;
+    /**
+     * The Products error label.
+     */
     public Label productsErrorLabel;
+    /**
+     * The Products yes btn.
+     */
+    public Button products_yes_btn;
+    /**
+     * The Products no btn.
+     */
+    public Button products_no_btn;
 
+    /**
+     * The Exit button.
+     */
     public Button exitButton;
 
     @Override
@@ -82,18 +134,9 @@ public class Main_Controller implements Initializable {
         productsTable.setItems(Inventory.getAllProducts());
     }
 
-    public static void loadPage(String page, ActionEvent event)throws IOException{
-        page =  page + ".fxml";
-        Parent parent = FXMLLoader.load(Main.class.getResource(page));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @FXML
     private void onPartsSearchBarInput(KeyEvent keyEvent){
-        uiErrorMsgRESET();
+        uiRESET();
         foundParts.clear();
         try {
             try{
@@ -109,10 +152,7 @@ public class Main_Controller implements Initializable {
             }
             else {
                 partsTable.setItems(foundParts);
-                partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
-                partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
-                partInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
-                partPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
+                
             }
         }
         catch(Exception e){
@@ -127,7 +167,7 @@ public class Main_Controller implements Initializable {
 
     @FXML
     private void onModifyPartButtonClick(ActionEvent event) throws IOException {
-        uiErrorMsgRESET();
+        uiRESET();
         selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
         if(selectedPart != null){
@@ -139,28 +179,34 @@ public class Main_Controller implements Initializable {
 
     @FXML
     private void onDeletePartButtonClick(ActionEvent event){
-        uiErrorMsgRESET();
+        uiRESET();
         selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
         if(selectedPart != null){
-            Boolean deleted = Inventory.deletePart(selectedPart);
-
-            partsTable.setItems(Inventory.getAllParts());
-            partID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
-            partName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
-            partInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
-            partPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
-            if(!deleted){
-                uiErrorMsgHandler(HandledObject.PARTS, ErrorType.DELETE_FAILED);;
-            }
+            getConformationUI(HandledObject.PARTS);
         }else{
             uiErrorMsgHandler(HandledObject.PARTS, ErrorType.DELETE_NOT_SELECTED);;
         }
     }
+    @FXML
+    private void partsYES_clicked(ActionEvent event){
+        uiRESET();
+        Boolean deleted = Inventory.deletePart(selectedPart);
+        partsTable.setItems(Inventory.getAllParts());
+
+        if(!deleted){
+            uiErrorMsgHandler(HandledObject.PARTS, ErrorType.DELETE_FAILED);;
+        }
+    }
+
+    @FXML
+    private void partsNO_clicked(ActionEvent event){
+        uiRESET();
+    }
 
     @FXML
     private void onProductsSearchBarInput(KeyEvent keyEvent){
-        uiErrorMsgRESET();
+        uiRESET();
         foundProducts.clear();
         try {
             try{
@@ -176,10 +222,6 @@ public class Main_Controller implements Initializable {
             }
             else {
                 productsTable.setItems(foundProducts);
-                productID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
-                productName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
-                productInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
-                productPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
             }
         }
         catch(Exception e){
@@ -194,7 +236,7 @@ public class Main_Controller implements Initializable {
 
     @FXML
     private void onModifyProductButtonClick(ActionEvent event) throws IOException {
-        uiErrorMsgRESET();
+        uiRESET();
         selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 
         if(selectedProduct != null){
@@ -206,23 +248,30 @@ public class Main_Controller implements Initializable {
 
     @FXML
     private void onDeleteProductButtonClick(ActionEvent event){
-        uiErrorMsgRESET();
+        uiRESET();
         selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 
         if(selectedProduct != null){
-            Boolean deleted = Inventory.deleteProduct(selectedProduct);
-
-            productsTable.setItems(Inventory.getAllProducts());
-            productID_Col.setCellValueFactory(new PropertyValueFactory<>("id"));
-            productName_Col.setCellValueFactory(new PropertyValueFactory<>("name"));
-            productInv_Col.setCellValueFactory(new PropertyValueFactory<>("stock"));
-            productPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
-            if(!deleted){
-                uiErrorMsgHandler(HandledObject.PRODUCTS, ErrorType.DELETE_FAILED);;
-            }
+             getConformationUI(HandledObject.PRODUCTS);
         }else{
             uiErrorMsgHandler(HandledObject.PRODUCTS, ErrorType.DELETE_NOT_SELECTED);;
         }
+    }
+
+    @FXML
+    private void productsYES_clicked(ActionEvent event){
+        uiRESET();
+        Boolean deleted = Inventory.deleteProduct(selectedProduct);
+
+        productsTable.setItems(Inventory.getAllProducts());
+        if(!deleted){
+            uiErrorMsgHandler(HandledObject.PRODUCTS, ErrorType.DELETE_FAILED);;
+        }
+    }
+
+    @FXML
+    private void productsNO_clicked(ActionEvent event){
+        uiRESET();
     }
 
     @FXML
@@ -230,56 +279,148 @@ public class Main_Controller implements Initializable {
         Platform.exit();
     }
 
+    /**
+     * The enum Error type.
+     */
     enum ErrorType{
-        DELETE_NOT_SELECTED, MODIFY_NOT_SELECTED, MISSING, DELETE_FAILED
+        /**
+         * Delete not selected error type.
+         */
+        DELETE_NOT_SELECTED,
+        /**
+         * Modify not selected error type.
+         */
+        MODIFY_NOT_SELECTED,
+        /**
+         * Missing error type.
+         */
+        MISSING,
+        /**
+         * Delete failed error type.
+         */
+        DELETE_FAILED
     }
 
+    /**
+     * The enum Handled object.
+     */
     enum HandledObject {
-        PARTS, PRODUCTS
+        /**
+         * Parts handled object.
+         */
+        PARTS,
+        /**
+         * Products handled object.
+         */
+        PRODUCTS
     }
 
+    /**
+     * Ui error msg handler.
+     *
+     * @param HandledObject the handled object
+     * @param errorType     the error type
+     */
     public void uiErrorMsgHandler(HandledObject HandledObject, ErrorType errorType){
         String modifyNotSelected = "Error: You must select a $object to modify.";
         String deleteNotSelected = "Error: You must select a $object to delete.";
         String missing = "Error: $object missing.";
         String deleteFailure = "Error: $object not deleted.";
 
-        switch (HandledObject){
-            case PARTS:
+        switch (HandledObject) {
+            case PARTS -> {
                 partsErrorLabel.setOpacity(1);
-                if (errorType == ErrorType.DELETE_NOT_SELECTED){
+                if (errorType == ErrorType.DELETE_NOT_SELECTED) {
                     partsErrorLabel.setText(deleteNotSelected.replace("$object", "part"));
-                } else if (errorType == ErrorType.MODIFY_NOT_SELECTED){
+                } else if (errorType == ErrorType.MODIFY_NOT_SELECTED) {
                     partsErrorLabel.setText(modifyNotSelected.replace("$object", "part"));
                 } else if (errorType == ErrorType.MISSING) {
                     partsErrorLabel.setText(missing.replace("$object", "part"));
                 } else if (errorType == ErrorType.DELETE_FAILED) {
                     partsErrorLabel.setText(deleteFailure.replace("$object", "part"));
                 }
-                break;
-            case PRODUCTS:
+            }
+            case PRODUCTS -> {
                 productsErrorLabel.setOpacity(1);
-                if (errorType == ErrorType.DELETE_NOT_SELECTED){
+                if (errorType == ErrorType.DELETE_NOT_SELECTED) {
                     productsErrorLabel.setText(deleteNotSelected.replace("$object", "product"));
-                } else if (errorType == ErrorType.MODIFY_NOT_SELECTED){
+                } else if (errorType == ErrorType.MODIFY_NOT_SELECTED) {
                     productsErrorLabel.setText(modifyNotSelected.replace("$object", "product"));
                 } else if (errorType == ErrorType.MISSING) {
                     productsErrorLabel.setText(missing.replace("$object", "product"));
                 } else if (errorType == ErrorType.DELETE_FAILED) {
-                    if(!selectedProduct.getAllAssociatedParts().isEmpty()){
+                    if (!selectedProduct.getAllAssociatedParts().isEmpty()) {
                         productsErrorLabel.setText(deleteFailure.replace("$object", "Product")
                                 + " This product has associated parts!");
-                    }else {
+                    } else {
                         productsErrorLabel.setText(deleteFailure.replace("$object", "Product"));
                     }
                 }
-                break;
+            }
         }
     }
 
-    public void uiErrorMsgRESET(){
-        partsErrorLabel.setOpacity(0);
-        productsErrorLabel.setOpacity(0);
+    /**
+     * Get conformation ui.
+     *
+     * @param HandledObject the handled object
+     */
+    public void getConformationUI(HandledObject HandledObject){
+        switch(HandledObject){
+            case PARTS -> {
+                partsErrorLabel.setOpacity(1);
+                partsErrorLabel.setText("Are You Sure You would Like to Delete Selected Part?");
+
+                parts_yes_btn.setOpacity(1);
+                parts_yes_btn.setDisable(false);
+
+                parts_no_btn.setOpacity(1);
+                parts_no_btn.setDisable(false);
+            }
+            case PRODUCTS -> {
+                productsErrorLabel.setOpacity(1);
+                productsErrorLabel.setText("Are You Sure You would Like to Delete Selected Part?");
+
+                products_yes_btn.setOpacity(1);
+                products_yes_btn.setDisable(false);
+
+                products_no_btn.setOpacity(1);
+                products_no_btn.setDisable(false);
+            }
+        }
     }
 
+    /**
+     * Ui reset.
+     */
+    public void uiRESET(){
+        partsErrorLabel.setOpacity(0);
+        productsErrorLabel.setOpacity(0);
+
+        parts_yes_btn.setOpacity(0);
+        parts_no_btn.setOpacity(0);
+        products_yes_btn.setOpacity(0);
+        products_no_btn.setOpacity(0);
+
+        parts_yes_btn.setDisable(true);
+        parts_no_btn.setDisable(true);
+        products_yes_btn.setDisable(true);
+        products_no_btn.setDisable(true);
+    }
+
+    /**
+     * Load page.
+     *
+     * @param page  the page
+     * @param event the event
+     * @throws IOException the io exception
+     */
+    public static void loadPage(String page, ActionEvent event)throws IOException{
+        page =  page + ".fxml";
+        Parent parent = FXMLLoader.load(Main.class.getResource(page));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

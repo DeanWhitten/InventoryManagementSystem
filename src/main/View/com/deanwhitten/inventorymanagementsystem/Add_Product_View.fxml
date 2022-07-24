@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deanwhitten.inventorymanagementsystem.AddProduct_Controller">
    <children>
       <GridPane layoutX="-3.0" layoutY="-2.0" prefHeight="500.0" prefWidth="1000.0">
@@ -52,12 +51,12 @@
                   <Label text="Price" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Max" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Min" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <TextField maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <TextField fx:id="id_input" disable="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="name_input" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="inv_input" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField fx:id="priceCost_input" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <TextField fx:id="max_input" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <TextField fx:id="min_input" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="1">
@@ -75,20 +74,20 @@
                   <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView prefHeight="97.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="partsTable" prefHeight="97.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Part ID" />
-                      <TableColumn prefWidth="140.0" text="Part Name" />
-                        <TableColumn prefWidth="132.0" text="Inventory Level" />
-                        <TableColumn prefWidth="155.0" text="Price / Cost per Unit" />
+                      <TableColumn fx:id="partID_Col" prefWidth="75.0" text="Part ID" />
+                      <TableColumn fx:id="partName_Col" prefWidth="140.0" text="Part Name" />
+                        <TableColumn fx:id="partInv_Col" prefWidth="132.0" text="Inventory Level" />
+                        <TableColumn fx:id="partPrice_Col" prefWidth="155.0" text="Price / Cost per Unit" />
                     </columns>
                   </TableView>
-                  <TableView prefHeight="97.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TableView fx:id="associatedPartsTable" prefHeight="97.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="Part ID" />
-                        <TableColumn prefWidth="140.0" text="Part Name" />
-                        <TableColumn prefWidth="132.0" text="Inventory Level" />
-                        <TableColumn prefWidth="155.0" text="Price / Cost per Unit" />
+                        <TableColumn fx:id="associatedPartID_Col" prefWidth="75.0" text="Part ID" />
+                        <TableColumn fx:id="associatedPartName_Col" prefWidth="140.0" text="Part Name" />
+                        <TableColumn fx:id="associatedPartInv_Col" prefWidth="132.0" text="Inventory Level" />
+                        <TableColumn fx:id="associatedPartPrice_Col" prefWidth="155.0" text="Price / Cost per Unit" />
                      </columns>
                   </TableView>
                   <GridPane GridPane.columnIndex="1">
@@ -100,7 +99,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField GridPane.columnIndex="1" />
+                        <TextField fx:id="partSearchBar" onKeyTyped="#onSearchInput" promptText="Search b y Part ID or name" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -112,7 +111,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Add" GridPane.columnIndex="1" />
+                        <Button fx:id="addAssociatedPart_btn" mnemonicParsing="false" onAction="#onAddClicked" prefHeight="25.0" prefWidth="50.0" text="Add" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -124,7 +123,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" text="Remove Associated Part" GridPane.columnIndex="1" />
+                        <Button fx:id="removeAssociatedPart_btn" mnemonicParsing="false" onAction="#onRemoveClicked" prefHeight="25.0" prefWidth="153.0" text="Remove Associated Part" GridPane.columnIndex="1" />
+                        <Label fx:id="addProduct_ErrorLabel" alignment="CENTER" contentDisplay="CENTER" opacity="0.0" prefHeight="45.0" prefWidth="350.0" text="Label" textFill="RED" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -137,8 +137,23 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" text="Save" GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="2" />
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveClicked" text="Save" GridPane.columnIndex="1" />
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" GridPane.columnIndex="2" />
+                        <GridPane>
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="130.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.0" minWidth="10.0" prefWidth="36.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.0" minWidth="10.0" prefWidth="41.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="146.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="yes_btn" disable="true" mnemonicParsing="false" onAction="#yesClicked" opacity="0.0" text="Yes" GridPane.columnIndex="1" />
+                              <Button fx:id="no_btn" disable="true" mnemonicParsing="false" onAction="#noClicked" opacity="0.0" prefHeight="25.0" prefWidth="39.0" text="No" GridPane.columnIndex="3" />
+                           </children>
+                        </GridPane>
                      </children>
                   </GridPane>
                </children>
