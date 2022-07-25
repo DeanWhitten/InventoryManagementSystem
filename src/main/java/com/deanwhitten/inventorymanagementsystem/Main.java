@@ -8,9 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * The type Main.
- */
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -22,11 +19,6 @@ public class Main extends Application {
         stage.show();
     }
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         //InHouse Sample Parts
         Part inhousePart1 = new InHouse(1, "Custom coiled USB - C cord", 1.99, 205, 5, 50, 136789);

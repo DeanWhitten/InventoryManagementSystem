@@ -23,9 +23,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * The type Main controller.
- */
 public class Main_Controller implements Initializable {
     @FXML
     private TextField partSearchBar;
@@ -54,68 +51,23 @@ public class Main_Controller implements Initializable {
     private TableColumn<Product, Double> productPrice_Col;
 
     private ObservableList<Part> foundParts = FXCollections.observableArrayList();
-    /**
-     * The constant selectedPart.
-     */
     public static Part selectedPart;
-    /**
-     * The Add part.
-     */
     public Button addPart;
-    /**
-     * The Modify part.
-     */
     public Button modifyPart;
-    /**
-     * The Delete part.
-     */
     public Button deletePart;
-    /**
-     * The Parts error label.
-     */
     public  Label partsErrorLabel;
-    /**
-     * The Parts yes btn.
-     */
     public Button parts_yes_btn;
-    /**
-     * The Parts no btn.
-     */
     public Button parts_no_btn;
 
     private ObservableList<Product> foundProducts = FXCollections.observableArrayList();
-    /**
-     * The constant selectedProduct.
-     */
     public static Product selectedProduct;
-    /**
-     * The Add product.
-     */
     public Button addProduct;
-    /**
-     * The Modify product.
-     */
     public Button modifyProduct;
-    /**
-     * The Delete product.
-     */
     public Button deleteProduct;
-    /**
-     * The Products error label.
-     */
     public Label productsErrorLabel;
-    /**
-     * The Products yes btn.
-     */
     public Button products_yes_btn;
-    /**
-     * The Products no btn.
-     */
     public Button products_no_btn;
 
-    /**
-     * The Exit button.
-     */
     public Button exitButton;
 
     @Override
@@ -279,48 +231,18 @@ public class Main_Controller implements Initializable {
         Platform.exit();
     }
 
-    /**
-     * The enum Error type.
-     */
     enum ErrorType{
-        /**
-         * Delete not selected error type.
-         */
         DELETE_NOT_SELECTED,
-        /**
-         * Modify not selected error type.
-         */
         MODIFY_NOT_SELECTED,
-        /**
-         * Missing error type.
-         */
         MISSING,
-        /**
-         * Delete failed error type.
-         */
         DELETE_FAILED
     }
 
-    /**
-     * The enum Handled object.
-     */
     enum HandledObject {
-        /**
-         * Parts handled object.
-         */
         PARTS,
-        /**
-         * Products handled object.
-         */
         PRODUCTS
     }
 
-    /**
-     * Ui error msg handler.
-     *
-     * @param HandledObject the handled object
-     * @param errorType     the error type
-     */
     public void uiErrorMsgHandler(HandledObject HandledObject, ErrorType errorType){
         String modifyNotSelected = "Error: You must select a $object to modify.";
         String deleteNotSelected = "Error: You must select a $object to delete.";
@@ -360,11 +282,6 @@ public class Main_Controller implements Initializable {
         }
     }
 
-    /**
-     * Get conformation ui.
-     *
-     * @param HandledObject the handled object
-     */
     public void getConformationUI(HandledObject HandledObject){
         switch(HandledObject){
             case PARTS -> {
@@ -390,9 +307,6 @@ public class Main_Controller implements Initializable {
         }
     }
 
-    /**
-     * Ui reset.
-     */
     public void uiRESET(){
         partsErrorLabel.setOpacity(0);
         productsErrorLabel.setOpacity(0);
@@ -408,13 +322,6 @@ public class Main_Controller implements Initializable {
         products_no_btn.setDisable(true);
     }
 
-    /**
-     * Load page.
-     *
-     * @param page  the page
-     * @param event the event
-     * @throws IOException the io exception
-     */
     public static void loadPage(String page, ActionEvent event)throws IOException{
         page =  page + ".fxml";
         Parent parent = FXMLLoader.load(Main.class.getResource(page));

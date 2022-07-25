@@ -16,9 +16,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * The type Modify product controller.
- */
 public class ModifyProduct_Controller implements Initializable {
     @FXML
     private TextField partSearchBar;
@@ -44,71 +41,26 @@ public class ModifyProduct_Controller implements Initializable {
     @FXML
     private TableColumn<Part, Double> associatedPartPrice_Col;
 
-    /**
-     * The Id input.
-     */
     public TextField id_input;
-    /**
-     * The Name input.
-     */
     public TextField name_input;
-    /**
-     * The Inv input.
-     */
     public TextField inv_input;
-    /**
-     * The Price cost input.
-     */
     public TextField priceCost_input;
-    /**
-     * The Max input.
-     */
     public TextField max_input;
-    /**
-     * The Min input.
-     */
     public TextField min_input;
 
-    /**
-     * The Add associated part btn.
-     */
     public Button addAssociatedPart_btn;
-    /**
-     * The Remove associated part btn.
-     */
     public Button removeAssociatedPart_btn;
-    /**
-     * The Save btn.
-     */
     public Button saveBtn;
-    /**
-     * The Cancel btn.
-     */
     public Button cancelBtn;
 
-    /**
-     * The Modify product error label.
-     */
     public Label modifyProduct_ErrorLabel;
-    /**
-     * The Yes btn.
-     */
     public Button yes_btn;
-    /**
-     * The No btn.
-     */
     public Button no_btn;
 
     private Product product;
     private static int index;
-    /**
-     * The constant selectedPart.
-     */
     public static Part selectedPart;
     private ObservableList<Part> foundParts = FXCollections.observableArrayList();
-    /**
-     * The Associated.
-     */
     ObservableList<Part> associated = FXCollections.observableArrayList();
 
     @Override
@@ -137,12 +89,6 @@ public class ModifyProduct_Controller implements Initializable {
         associatedPartPrice_Col.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
-    /**
-     * On search input.
-     *
-     * @param keyEvent the key event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onSearchInput( KeyEvent keyEvent) throws IOException {
         uiRESET();
@@ -168,12 +114,6 @@ public class ModifyProduct_Controller implements Initializable {
         }
     }
 
-    /**
-     * On add clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onAddClicked(ActionEvent event) throws IOException {
         selectedPart = partsTable.getSelectionModel().getSelectedItem();
@@ -187,12 +127,6 @@ public class ModifyProduct_Controller implements Initializable {
         }
     }
 
-    /**
-     * On remove clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onRemoveClicked(ActionEvent event) throws IOException {
         uiRESET();
@@ -204,12 +138,6 @@ public class ModifyProduct_Controller implements Initializable {
         }
     }
 
-    /**
-     * Yes clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void yesClicked(ActionEvent event) throws IOException {
         uiRESET();
@@ -217,23 +145,11 @@ public class ModifyProduct_Controller implements Initializable {
         selectedPart = null;
     }
 
-    /**
-     * No clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void noClicked(ActionEvent event) throws IOException {
         uiRESET();
     }
 
-    /**
-     * On save clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onSaveClicked(ActionEvent event) throws IOException {
         try{
@@ -280,12 +196,6 @@ public class ModifyProduct_Controller implements Initializable {
         }
     }
 
-    /**
-     * Cancel button clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
@@ -295,45 +205,16 @@ public class ModifyProduct_Controller implements Initializable {
         Main_Controller.loadPage("Main_view", event);
     }
 
-    /**
-     * The enum Error type.
-     */
     enum ErrorType{
-        /**
-         * Missing part error type.
-         */
         MISSING_PART,
-        /**
-         * Remove no selection error type.
-         */
         REMOVE_NO_SELECTION,
-        /**
-         * Add no selection error type.
-         */
         ADD_NO_SELECTION,
-        /**
-         * Unk error type.
-         */
         UNK,
-        /**
-         * Missing input error type.
-         */
         MISSING_INPUT,
-        /**
-         * Min max error type.
-         */
         MIN_MAX,
-        /**
-         * Stock range error type.
-         */
         STOCK_RANGE
     }
 
-    /**
-     * Ui error msg handler.
-     *
-     * @param errorType the error type
-     */
     public void uiErrorMsgHandler(ErrorType errorType){
         modifyProduct_ErrorLabel.setOpacity(1);
         switch(errorType){
@@ -372,9 +253,6 @@ public class ModifyProduct_Controller implements Initializable {
         no_btn.setDisable(false);
     }
 
-    /**
-     * Ui reset.
-     */
     public void uiRESET(){
         modifyProduct_ErrorLabel.setOpacity(0);
 

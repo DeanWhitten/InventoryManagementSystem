@@ -15,67 +15,22 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-/**
- * The type Add part controller.
- */
 public class AddPart_Controller implements Initializable {
-    /**
-     * The In house radio.
-     */
     public RadioButton inHouseRadio;
-    /**
-     * The Outsourced radio.
-     */
     public RadioButton outsourcedRadio;
-    /**
-     * The Add parts radios.
-     */
     public ToggleGroup AddPartsRadios;
 
-    /**
-     * The Id input.
-     */
     public TextField id_input;
-    /**
-     * The Name input.
-     */
     public TextField name_input;
-    /**
-     * The Inv input.
-     */
     public TextField inv_input;
-    /**
-     * The Price cost input.
-     */
     public TextField priceCost_input;
-    /**
-     * The Max input.
-     */
     public TextField max_input;
-    /**
-     * The Min input.
-     */
     public TextField min_input;
-    /**
-     * The Toggled label.
-     */
     public Label toggled_label;
-    /**
-     * The M c toggled input.
-     */
     public TextField m_c_Toggled_input;
 
-    /**
-     * The Save button.
-     */
     public Button saveButton;
-    /**
-     * The Cancel button.
-     */
     public Button cancelButton;
-    /**
-     * The Add part error label.
-     */
     public Label addPart_ErrorLabel;
 
     private boolean isOutsourced;
@@ -88,11 +43,6 @@ public class AddPart_Controller implements Initializable {
         id_input.setText("Auto-Gen: " + generatedIdNum);
     }
 
-    /**
-     * In house radio clicked.
-     *
-     * @param mouseEvent the mouse event
-     */
     @FXML
     protected void inHouseRadioClicked(MouseEvent mouseEvent){
          isOutsourced = false;
@@ -101,11 +51,6 @@ public class AddPart_Controller implements Initializable {
          uiErrorMsgRESET();
     }
 
-    /**
-     * Outsourced radio clicked.
-     *
-     * @param mouseEvent the mouse event
-     */
     @FXML
     protected void outsourcedRadioClicked(MouseEvent mouseEvent){
         isOutsourced = true;
@@ -114,11 +59,6 @@ public class AddPart_Controller implements Initializable {
         uiErrorMsgRESET();
     }
 
-    /**
-     * Save button clicked.
-     *
-     * @param event the event
-     */
     @FXML
     void saveButtonClicked(ActionEvent event) {
        try{
@@ -178,12 +118,6 @@ public class AddPart_Controller implements Initializable {
        }
     }
 
-    /**
-     * Cancel button clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
@@ -213,33 +147,13 @@ public class AddPart_Controller implements Initializable {
         Main_Controller.loadPage("Main_view", event);
     }
 
-    /**
-     * The enum Error type.
-     */
     enum ErrorType{
-        /**
-         * Unk error type.
-         */
         UNK,
-        /**
-         * Missing input error type.
-         */
         MISSING_INPUT,
-        /**
-         * Min max error type.
-         */
         MIN_MAX,
-        /**
-         * Stock range error type.
-         */
         STOCK_RANGE
     }
 
-    /**
-     * Ui error msg handler.
-     *
-     * @param errorType the error type
-     */
     public void uiErrorMsgHandler(ErrorType errorType){
         addPart_ErrorLabel.setOpacity(1);
         switch(errorType){
@@ -259,9 +173,6 @@ public class AddPart_Controller implements Initializable {
     }
 
 
-    /**
-     * Ui error msg reset.
-     */
     public void uiErrorMsgRESET(){
         addPart_ErrorLabel.setOpacity(0);
     }

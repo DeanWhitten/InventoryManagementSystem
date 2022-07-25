@@ -14,74 +14,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * The type Modify part controller.
- */
 public class ModifyPart_Controller implements Initializable {
-    /**
-     * The Inv.
-     */
     Inventory inv;
     private Part part;
     private static int index;
 
-    /**
-     * The In house radio.
-     */
     public RadioButton inHouseRadio;
-    /**
-     * The Outsourced radio.
-     */
     public RadioButton outsourcedRadio;
-    /**
-     * The Modify parts radios.
-     */
     public ToggleGroup modifyPartsRadios;
 
-    /**
-     * The Id input.
-     */
     public TextField id_input;
-    /**
-     * The Name input.
-     */
     public TextField name_input;
-    /**
-     * The Inv input.
-     */
     public TextField inv_input;
-    /**
-     * The Price cost input.
-     */
     public TextField priceCost_input;
-    /**
-     * The Max input.
-     */
     public TextField max_input;
-    /**
-     * The Min input.
-     */
     public TextField min_input;
-    /**
-     * The Toggled label.
-     */
     public Label toggled_label;
-    /**
-     * The M c toggled input.
-     */
     public TextField m_c_Toggled_input;
 
-    /**
-     * The Save button.
-     */
     public Button saveButton;
-    /**
-     * The Cancel button.
-     */
     public Button cancelButton;
-    /**
-     * The Modify part error label.
-     */
     public Label modifyPart_ErrorLabel;
 
     private boolean isOutsourced;
@@ -113,11 +65,6 @@ public class ModifyPart_Controller implements Initializable {
         }
     }
 
-    /**
-     * In house radio clicked.
-     *
-     * @param mouseEvent the mouse event
-     */
     @FXML
     protected void inHouseRadioClicked(MouseEvent mouseEvent){
         isOutsourced = false;
@@ -127,11 +74,6 @@ public class ModifyPart_Controller implements Initializable {
         uiErrorMsgRESET();
     }
 
-    /**
-     * Outsourced radio clicked.
-     *
-     * @param mouseEvent the mouse event
-     */
     @FXML
     protected void outsourcedRadioClicked(MouseEvent mouseEvent){
         isOutsourced = true;
@@ -141,12 +83,6 @@ public class ModifyPart_Controller implements Initializable {
         uiErrorMsgRESET();
     }
 
-    /**
-     * Save button clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void saveButtonClicked(ActionEvent event) throws IOException {
         try{
@@ -214,12 +150,6 @@ public class ModifyPart_Controller implements Initializable {
 
     }
 
-    /**
-     * Cancel button clicked.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
@@ -231,33 +161,13 @@ public class ModifyPart_Controller implements Initializable {
         Main_Controller.loadPage("Main_view", event);
     }
 
-    /**
-     * The enum Error type.
-     */
     enum ErrorType{
-        /**
-         * Unk error type.
-         */
         UNK,
-        /**
-         * Missing input error type.
-         */
         MISSING_INPUT,
-        /**
-         * Min max error type.
-         */
         MIN_MAX,
-        /**
-         * Stock range error type.
-         */
         STOCK_RANGE
     }
 
-    /**
-     * Ui error msg handler.
-     *
-     * @param errorType the error type
-     */
     public void uiErrorMsgHandler(ErrorType errorType){
         modifyPart_ErrorLabel.setOpacity(1);
         switch(errorType){
@@ -276,9 +186,6 @@ public class ModifyPart_Controller implements Initializable {
         }
     }
 
-    /**
-     * Ui error msg reset.
-     */
     public void uiErrorMsgRESET(){
         modifyPart_ErrorLabel.setOpacity(0);
     }
