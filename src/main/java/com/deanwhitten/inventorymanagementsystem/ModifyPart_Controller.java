@@ -14,30 +14,86 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Modify part controller.
+ *
+ *  @author Dean F Whitten
+ */
 public class ModifyPart_Controller implements Initializable {
+    /**
+     * The Inv.
+     */
     Inventory inv;
     private Part part;
     private static int index;
 
+    /**
+     * The In house radio.
+     */
     public RadioButton inHouseRadio;
+    /**
+     * The Outsourced radio.
+     */
     public RadioButton outsourcedRadio;
+    /**
+     * The Modify parts radios.
+     */
     public ToggleGroup modifyPartsRadios;
 
+    /**
+     * The Id input.
+     */
     public TextField id_input;
+    /**
+     * The Name input.
+     */
     public TextField name_input;
+    /**
+     * The Inv input.
+     */
     public TextField inv_input;
+    /**
+     * The Price cost input.
+     */
     public TextField priceCost_input;
+    /**
+     * The Max input.
+     */
     public TextField max_input;
+    /**
+     * The Min input.
+     */
     public TextField min_input;
+    /**
+     * The Toggled label.
+     */
     public Label toggled_label;
+    /**
+     * The Machine and Company toggled input.
+     */
     public TextField m_c_Toggled_input;
 
+    /**
+     * The Save button.
+     */
     public Button saveButton;
+    /**
+     * The Cancel button.
+     */
     public Button cancelButton;
+    /**
+     * The Modify part error label.
+     */
     public Label modifyPart_ErrorLabel;
 
     private boolean isOutsourced;
 
+    /**
+     * Initializes Controller.
+     * Loads the selected part and populates the fields with info from the part selected.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         part = Main_Controller.selectedPart;
@@ -65,6 +121,13 @@ public class ModifyPart_Controller implements Initializable {
         }
     }
 
+    /**
+     * In house radio clicked.
+     * changes the boolean for determining in in-house our out-sourced, the toggled label text to "Machine ID",
+     * unselects out-sourced radio, clears the machine & company input, and resets the UI error messages.
+     *
+     * @param mouseEvent in-house radio clicked
+     */
     @FXML
     protected void inHouseRadioClicked(MouseEvent mouseEvent){
         isOutsourced = false;
@@ -74,6 +137,13 @@ public class ModifyPart_Controller implements Initializable {
         uiErrorMsgRESET();
     }
 
+    /**
+     * Out Sourced radio clicked.
+     * changes the boolean for determining in in-house our out-sourced, the toggled label text to "Company",
+     * unselects in-house radio, clears the machine & company input, and resets the UI error messages.
+     *
+     * @param mouseEvent out-sourced radio clicked
+     */
     @FXML
     protected void outsourcedRadioClicked(MouseEvent mouseEvent){
         isOutsourced = true;
@@ -83,6 +153,15 @@ public class ModifyPart_Controller implements Initializable {
         uiErrorMsgRESET();
     }
 
+    /**
+     * Save button clicked.
+     * Checks for any blanks in the input, checks if min is less than max, and checks if Inv is equal or less than
+     * max or equal to or greater than min. If any of those conditions are not met then the UI will display an error
+     * message related to the condition not met and will not save new part till conditions are met. Otherwise, the
+     * part will be updated in the inventory and the program will return to the main window.
+     *
+     * @param event save button clicked
+     */
     @FXML
     protected void saveButtonClicked(ActionEvent event) throws IOException {
         try{
@@ -104,7 +183,7 @@ public class ModifyPart_Controller implements Initializable {
                 int machineId;
                 String compName;
 
-                if ( (min >= 0 &&  min <= max) && (stock > min && stock < max) ) {
+                if ( (min >= 0 &&  min <= max) && (stock >= min && stock <= max) ) {
 
                     if (inHouseRadio.isSelected() && !m_c_Toggled_input.getText().equals("")) {
                         machineId = Integer.parseInt(m_c_Toggled_input.getText());
@@ -133,7 +212,7 @@ public class ModifyPart_Controller implements Initializable {
                     }
 
                 }  else{
-                    if(!(stock > min && stock < max)){
+                    if(!(stock >= min && stock <= max)){
                         uiErrorMsgHandler(ErrorType.STOCK_RANGE);
                     }
                     if(!(min >= 0 &&  min <= max)){
@@ -150,24 +229,54 @@ public class ModifyPart_Controller implements Initializable {
 
     }
 
+    /**
+     * Cancel button clicked. Returns program back to the main window.
+     *
+     * @param event cancel button clicked
+     * @throws IOException the io exception
+     */
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
     }
 
 
-
+    /**
+     * returns program back to main window
+     * @param event
+     * @throws IOException
+     */
     private void returnToMainPage(ActionEvent event) throws IOException {
-        Main_Controller.loadPage("Main_view", event);
+        Main_Controller.loadWindow("Main_view", event);
     }
 
+    /**
+     * The enum Error type.
+     */
     enum ErrorType{
+        /**
+         * Unk error type.
+         */
         UNK,
+        /**
+         * Missing input error type.
+         */
         MISSING_INPUT,
+        /**
+         * Min is greater than max error type.
+         */
         MIN_MAX,
+        /**
+         * Stock out of range error type.
+         */
         STOCK_RANGE
     }
 
+    /**
+     * UI error msg handler that shows the appropriate error message based on the ErrorType.
+     *
+     * @param errorType the error type
+     */
     public void uiErrorMsgHandler(ErrorType errorType){
         modifyPart_ErrorLabel.setOpacity(1);
         switch(errorType){
@@ -186,6 +295,9 @@ public class ModifyPart_Controller implements Initializable {
         }
     }
 
+    /**
+     * Ui error msg reset. Hides Error label.
+     */
     public void uiErrorMsgRESET(){
         modifyPart_ErrorLabel.setOpacity(0);
     }

@@ -8,7 +8,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**  An Inventory Management Desktop Application that allows a user to manage parts and products
+ *
+ * JavaDoc location : src/JavaDocs
+ *
+ * @author Dean F Whitten
+ */
 public class Main extends Application {
+
+    /**
+     * Loads MainScreen controller
+     * @param stage
+     * */
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main_view.fxml"));
@@ -19,6 +31,11 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Launches the program with test data added to the inventory for parts and products.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         //InHouse Sample Parts
         Part inhousePart1 = new InHouse(1, "Custom coiled USB - C cord", 1.99, 205, 5, 50, 136789);
