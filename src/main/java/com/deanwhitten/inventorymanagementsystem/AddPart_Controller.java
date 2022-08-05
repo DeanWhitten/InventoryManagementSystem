@@ -15,82 +15,28 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-/**
- *  Add part controller.
- *
- *   @author Dean F Whitten
- */
 public class AddPart_Controller implements Initializable {
-    /**
-     * The In house radio.
-     */
     public RadioButton inHouseRadio;
-    /**
-     * The Outsourced radio.
-     */
     public RadioButton outsourcedRadio;
-    /**
-     * The Add parts radios.
-     */
     public ToggleGroup AddPartsRadios;
 
-    /**
-     * The Id input.
-     */
     public TextField id_input;
-    /**
-     * The Name input.
-     */
     public TextField name_input;
-    /**
-     * The Inv input.
-     */
     public TextField inv_input;
-    /**
-     * The Price cost input.
-     */
     public TextField priceCost_input;
-    /**
-     * The Max input.
-     */
     public TextField max_input;
-    /**
-     * The Min input.
-     */
     public TextField min_input;
-    /**
-     * The Toggled label.
-     */
     public Label toggled_label;
-    /**
-     * The Machine and Company toggled input.
-     */
     public TextField m_c_Toggled_input;
 
-    /**
-     * The Save button.
-     */
     public Button saveButton;
-    /**
-     * The Cancel button.
-     */
     public Button cancelButton;
-    /**
-     * The Add part error label.
-     */
     public Label addPart_ErrorLabel;
 
-    /**boolean to determine if the part being created is in-house or outsourced*/
     private boolean isOutsourced;
 
-    /**Stores generated ID number*/
     private int generatedIdNum;
 
-    /**
-     * Initilizes window and generates a part ID and autofills ID field.
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         generatedIdNum = generatePartID();
@@ -98,13 +44,6 @@ public class AddPart_Controller implements Initializable {
         id_input.setText("Auto-Gen: " + generatedIdNum);
     }
 
-    /**
-     * In house radio clicked.
-     * changes the boolean for determining in in-house our out-sourced, the toggled label text to "Machine ID",
-     * unselects out-sourced radio, clears the machine & company input, and resets the UI error messages.
-     *
-     * @param mouseEvent in-house radio clicked
-     */
     @FXML
     protected void inHouseRadioClicked(MouseEvent mouseEvent){
          isOutsourced = false;
@@ -113,11 +52,6 @@ public class AddPart_Controller implements Initializable {
          uiErrorMsgRESET();
     }
 
-    /**
-     * Outsourced radio clicked.
-     *
-     * @param mouseEvent the mouse event
-     */
     @FXML
     protected void outsourcedRadioClicked(MouseEvent mouseEvent){
         isOutsourced = true;
@@ -126,15 +60,6 @@ public class AddPart_Controller implements Initializable {
         uiErrorMsgRESET();
     }
 
-    /**
-     * Save button clicked.
-     * Checks for any blanks in the input, checks if min is less than max, and checks if Inv is equal or less than
-     * max or equal to or greater than min. If any of those conditions are not met then the UI will display an error
-     * message related to the condition not met and will not save new part till conditions are met. Otherwise, the
-     * part will be saved to the inventory and the program will return to the main window.
-     *
-     * @param event save button clicked
-     */
     @FXML
     void saveButtonClicked(ActionEvent event) {
        try{
@@ -193,21 +118,11 @@ public class AddPart_Controller implements Initializable {
        }
     }
 
-    /**
-     * Cancel button clicked. Returns program back to the main window.
-     *
-     * @param event cancel button clicked
-     * @throws IOException the io exception
-     */
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
     }
 
-    /**
-     * Generates Unique Part ID number  and checks if the generated already is used.
-     * @return generated part ID
-     */
     private int generatePartID() {
         boolean match;
         Random randomNum = new Random();
@@ -223,52 +138,22 @@ public class AddPart_Controller implements Initializable {
         return num;
     }
 
-    /**
-     * Checks to make sure that generated ID Number is not already assigned to another part.
-     * @param num number generated
-     * @return true or false based on if the number is already assigned
-     */
     private boolean verifyIfTaken(Integer num) {
         Part match = Inventory.lookupPart(num);
         return match != null;
     }
 
-    /**
-     * returns program back to main window
-     * @param event
-     * @throws IOException
-     */
     private void returnToMainPage(ActionEvent event) throws IOException {
         Main_Controller.loadWindow("Main_view", event);
     }
 
-    /**
-     * The enum Error type.
-     */
     enum ErrorType{
-        /**
-         * Unk error type.
-         */
         UNK,
-        /**
-         * Missing input during search error type.
-         */
         MISSING_INPUT,
-        /**
-         * Min is greater than max error type.
-         */
         MIN_MAX,
-        /**
-         * Stock out of range error type.
-         */
         STOCK_RANGE
     }
 
-    /**
-     * UI error msg handler that shows the appropriate error message based on the ErrorType.
-     *
-     * @param errorType the error type
-     */
     public void uiErrorMsgHandler(ErrorType errorType){
         addPart_ErrorLabel.setOpacity(1);
         switch(errorType){
@@ -288,9 +173,6 @@ public class AddPart_Controller implements Initializable {
     }
 
 
-    /**
-     * Ui error msg reset. Hides Error label.
-     */
     public void uiErrorMsgRESET(){
         addPart_ErrorLabel.setOpacity(0);
     }

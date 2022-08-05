@@ -15,10 +15,6 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-/**
- * The type Add product controller.
- *  @author Dean F Whitten
- */
 public class AddProduct_Controller implements Initializable {
     @FXML
     private TextField partSearchBar;
@@ -44,80 +40,28 @@ public class AddProduct_Controller implements Initializable {
     @FXML
     private TableColumn<Part, Double> associatedPartPrice_Col;
 
-    /**
-     * The Id input.
-     */
     public TextField id_input;
-    /**
-     * The Name input.
-     */
     public TextField name_input;
-    /**
-     * The Inv input.
-     */
     public TextField inv_input;
-    /**
-     * The Price cost input.
-     */
     public TextField priceCost_input;
-    /**
-     * The Max input.
-     */
     public TextField max_input;
-    /**
-     * The Min input.
-     */
     public TextField min_input;
 
-    /**
-     * The Add associated part button.
-     */
     public Button addAssociatedPart_btn;
-    /**
-     * The Remove associated part button.
-     */
     public Button removeAssociatedPart_btn;
-    /**
-     * The Save button.
-     */
     public Button saveBtn;
-    /**
-     * The Cancel button.
-     */
     public Button cancelBtn;
 
-    /**
-     * The Add product error label.
-     */
     public Label addProduct_ErrorLabel;
-    /**
-     * The Yes button.
-     */
     public Button yes_btn;
-    /**
-     * The No button.
-     */
     public Button no_btn;
 
     private int generatedIdNum;
-    /**
-     * The constant selectedPart.
-     */
     public static Part selectedPart;
     private ObservableList<Part> foundParts = FXCollections.observableArrayList();
-    /**
-     * The Temp associated.
-     */
     ObservableList<Part> tempAssociated = FXCollections.observableArrayList();
 
 
-    /**
-     * Initializes the add product controller.
-     * Generates product ID number and populates its field, Populates the available parts, and the associated parts
-     * tables.
-     * @param url
-     * @param resourceBundle
-     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partsTable.setItems(Inventory.getAllParts());
@@ -136,12 +80,6 @@ public class AddProduct_Controller implements Initializable {
         id_input.setText("Auto-Gen: " + generatedIdNum);
     }
 
-    /**
-     *Searches for parts by Part ID or by Part Name.
-     *a UI error is called and displayed if no results are found.
-     *
-     * @param keyEvent typing text in the Part search field.
-     * */
     @FXML
     protected void onSearchInput( KeyEvent keyEvent) throws IOException {
         uiRESET();
@@ -167,16 +105,6 @@ public class AddProduct_Controller implements Initializable {
         }
     }
 
-    /**
-     * On add clicked.
-     * Resets error and conformation UI, assigns the selected part to a variable, and checks if a part is selected.
-     * If a part is selected then it is added to an Observable array list that stores associated parts and the
-     * associated parts table is updated and the selected part is set back to null. If a part was not selected and UI
-     * error message is shown.
-     *
-     * @param event add button clicked
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onAddClicked(ActionEvent event) throws IOException {
         uiRESET();
@@ -191,15 +119,6 @@ public class AddProduct_Controller implements Initializable {
         }
     }
 
-    /**
-     * On remove clicked.
-     * Resets error and conformation UI, assigns the selected part to a variable, and checks if a part is selected.
-     * If a part is selected then the deletion confirmation UI method is called. If a part was not selected and UI
-     * error message is shown.
-     *
-     * @param event on remove associated button clicked
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onRemoveClicked(ActionEvent event) throws IOException {
         uiRESET();
@@ -212,12 +131,6 @@ public class AddProduct_Controller implements Initializable {
 
     }
 
-    /**
-     * Yes is clicked in the associated parts deletion confirmation. Resets UI, part IS deleted from the association
-     * table and selected part is set back to null.
-     * @param event the yes button clicked
-     * @throws IOException the io exception
-     */
     @FXML
     protected void yesClicked(ActionEvent event) throws IOException {
         uiRESET();
@@ -225,27 +138,12 @@ public class AddProduct_Controller implements Initializable {
         selectedPart = null;
     }
 
-    /**
-     * No is clicked in the associated parts deletion confirmation. The UI is reset.
-     *
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void noClicked(ActionEvent event) throws IOException {
         uiRESET();
     }
 
 
-    /**
-     * Save button clicked.
-     * Checks for any blanks in the input, checks if min is less than max, and checks if Inv is equal or less than
-     * max or equal to or greater than min. If any of those conditions are not met then the UI will display an error
-     * message related to the condition not met and will not save new product till conditions are met. Otherwise, the
-     * product will be saved to the inventory and the program will return to the main window.
-     * @param event the event
-     * @throws IOException the io exception
-     */
     @FXML
     protected void onSaveClicked(ActionEvent event) throws IOException {
         try{
@@ -293,30 +191,15 @@ public class AddProduct_Controller implements Initializable {
     }
 
 
-    /**
-     * Cancel button clicked. Returns program back to the main window.
-     *
-     * @param event cancel button clicked
-     * @throws IOException the io exception
-     */
     @FXML
     protected void cancelButtonClicked(ActionEvent event) throws IOException {
         returnToMainPage(event);
     }
 
-    /**
-     * returns program back to main window
-     * @param event
-     * @throws IOException
-     */
     private void returnToMainPage(ActionEvent event) throws IOException {
         Main_Controller.loadWindow("Main_view", event);
     }
 
-    /**
-     * Generates Unique Product ID number  and checks if the generated already is used.
-     * @return generated product ID
-     */
     private int generateProductID() {
         boolean match;
         Random randomNum = new Random();
@@ -332,55 +215,21 @@ public class AddProduct_Controller implements Initializable {
         return num;
     }
 
-    /**
-     * Checks to make sure that generated ID Number is not already assigned to another product.
-     * @param num number generated
-     * @return true or false based on if the number is already assigned
-     */
     private boolean verifyIfTaken(Integer num) {
         Product match = Inventory.lookupProduct(num);
         return match != null;
     }
 
-    /**
-     * The enum Error type.
-     */
     enum ErrorType{
-        /**
-         * Missing part during search error type.
-         */
         MISSING_PART,
-        /**
-         * Nothing is selected to be removed from associated parts error type
-         */
         REMOVE_NO_SELECTION,
-        /**
-         * NO part is selected to be added to associated parts error type
-         */
         ADD_NO_SELECTION,
-        /**
-         * Unk error type.
-         */
         UNK,
-        /**
-         * Missing input error type.
-         */
         MISSING_INPUT,
-        /**
-         * Min is greater than max error type.
-         */
         MIN_MAX,
-        /**
-         * Stock out of range error type.
-         */
         STOCK_RANGE
     }
 
-    /**
-     * UI error msg handler that shows the appropriate error message based on the ErrorType.
-     *
-     * @param errorType the error type
-     */
     public void uiErrorMsgHandler(ErrorType errorType){
         addProduct_ErrorLabel.setOpacity(1);
        switch(errorType){
@@ -408,10 +257,6 @@ public class AddProduct_Controller implements Initializable {
        }
     }
 
-    /**
-     * Enables and displays the UI elements needed for confirming the removal of selected associated part.
-     *
-     */
     private void getConformationUI() {
         addProduct_ErrorLabel.setOpacity(1);
         addProduct_ErrorLabel.setText("Are you sure you would like to remove association?");
@@ -423,9 +268,6 @@ public class AddProduct_Controller implements Initializable {
         no_btn.setDisable(false);
     }
 
-    /**
-     * Resets the UI for all error labels and conformations buttons back to disabled and invisible
-     */
     public void uiRESET(){
         addProduct_ErrorLabel.setOpacity(0);
 

@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.deanwhitten.inventorymanagementsystem","l":"com.deanwhitten.inventorymanagementsystem"},{"m":"com.deanwhitten.inventorymanagementsystem","l":"com.deanwhitten.inventorymanagementsystem.Model"}];updateSearchResults();
